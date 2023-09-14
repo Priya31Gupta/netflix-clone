@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styles from "./card.module.css";
 import { useState } from "react";
 import cls from "classnames";

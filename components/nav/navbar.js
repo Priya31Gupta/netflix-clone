@@ -1,12 +1,13 @@
 import styles from './navbar.module.css';
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {magic} from '../../lib/magic-client.js';
 
 const NavBar = (props) => {
     const [userName, setUserName] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
+    const[userMsg,setUserMsg] = useState('');
 
     const router = useRouter();
 
@@ -29,7 +30,8 @@ const NavBar = (props) => {
     const handleSignOut = async () => {
         try {
             const res = await magic.user.logout();
-            setLoggedIn(false);
+            setLoggedIn(res);
+            localStorage.removeItem('didtoken')
             router.push("/login");
           } catch(error) {
             console.error("Error logging out", error);
@@ -40,8 +42,10 @@ const NavBar = (props) => {
         const getUser = async () => {
             try {
                 const isLoggedIn = await magic.user.isLoggedIn();
-                const { email, publicAddress } = await magic.user.getMetadata();
-                if(isLoggedIn){
+                let { email, publicAddress } = await magic.user.getMetadata();
+                const localDidToken = JSON.parse(localStorage.getItem('didtoken')) || '';
+                if(isLoggedIn || localDidToken.didtoken){
+                    if(!email && localDidToken.email) email = localDidToken.email;
                     setLoggedIn(true);
                     setUserName(email);
                 }

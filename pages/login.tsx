@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from '../styles/Login.module.css';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { magic } from "../lib/magic-client";
@@ -34,6 +34,7 @@ const Login = () => {
                 const didToken  = await magic.auth.loginWithEmailOTP({ email});
                 console.log(didToken, "didtoken");
                 if (didToken) {
+                    localStorage.setItem('didToken',JSON.stringify({ didToken,email}));
                     router.push("/");
                 }
             } catch (error:any) {
