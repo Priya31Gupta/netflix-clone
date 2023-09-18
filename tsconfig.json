@@ -17,6 +17,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/banner/banner.js", "pages/_document.js", "lib/magic-client.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/banner/banner.js", "pages/_document.js", "lib/magic-client.js", "pages/api/login.js"],
   "exclude": ["node_modules"]
 }

@@ -35,14 +35,15 @@ const NavBar = (props) => {
             router.push("/login");
           } catch(error) {
             console.error("Error logging out", error);
-            //router.push("/login");
           }
     }
     useEffect(()=>{
         const getUser = async () => {
             try {
                 const isLoggedIn = await magic.user.isLoggedIn();
-                let { email, publicAddress } = await magic.user.getMetadata();
+                let { email, publicAddress, issuer } = await magic.user.getMetadata();
+                const didToken = await magic.user.getIdToken();
+                //console.log({ didToken,publicAddress, issuer });
                 const localDidToken = JSON.parse(localStorage.getItem('didtoken')) || '';
                 if(isLoggedIn || localDidToken.didtoken){
                     if(!email && localDidToken.email) email = localDidToken.email;
