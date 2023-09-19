@@ -4,6 +4,9 @@ import styles from '../../styles/video.module.css';
 import clsx from 'classnames';
 import NavBar from '../../components/nav/navbar';
 import { getVideoById  } from "@/lib/video";
+import Like from '../../components/icon/like-icon';
+import DisLike from '../../components/icon/dislike-icon';
+import { useState } from "react";
 
 Modal.setAppElement('#__next');
 
@@ -27,6 +30,20 @@ export async function getStaticPaths() {
 const VideoIdPage = ({video}) => {
     const router = useRouter();
     const id = router.query.videoId;
+    const [toggleLike, setToggleLike] = useState(false);
+    const [toggleDisLike, setToggleDisLike] = useState(false);
+
+    const handleToggleLike = async() => {
+        console.log('toggled')
+        setToggleLike(!toggleLike);
+        setToggleDisLike(toggleLike);
+    }
+
+    const handleToggleDisLike = async() => {
+        console.log('toggled')
+        setToggleLike(toggleLike);
+        setToggleDisLike(!toggleLike);
+    }
     
     const { title, publishTime, description, channelTitle, statistics: { viewCount } = { viewCount: 0 } } = video;
     return (
@@ -43,11 +60,28 @@ const VideoIdPage = ({video}) => {
                     id="ytplayer"
                     type="text/html"
                     width="100%"
-                    height="360"
+                    height="460"
                     src={`https://www.youtube.com/embed/${id}?autoplay=0&origin=http://example.com&controls=0&rel=1`}
                     className={styles.videoPlayer}
                     frameBorder={0}
-                ></iframe>
+                > 
+                </iframe>
+                <div className={styles.likeDislikeBtnWrapper}>
+                    <div className={styles.likeBtnWrapper}>
+                        <button onClick={handleToggleLike}>
+                            <div className={styles.btnWrapper}>
+                                <Like selected={toggleLike}/>
+                            </div>
+                        </button>
+                    </div> 
+                    <div className={styles.likeBtnWrapper}>
+                        <button onClick={handleToggleDisLike}>
+                            <div className={styles.btnWrapper}>
+                                <DisLike selected={toggleDisLike} />
+                            </div>
+                        </button>
+                    </div> 
+                </div>
                 <div className={styles.modalBodyContent}>
                     <div className={styles.modalBody}>
                         <div className={styles.col1}>
@@ -66,6 +100,7 @@ const VideoIdPage = ({video}) => {
                             <span className={styles.channelTitle}>{viewCount}</span>
                         </p>
                     </div>
+                    
                 </div>
             </Modal>
         </div>

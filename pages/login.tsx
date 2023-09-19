@@ -32,10 +32,22 @@ const Login = () => {
             try {
                 setLoading(true);
                 const didToken  = await magic.auth.loginWithEmailOTP({ email});
-                console.log(didToken, "didtoken");
                 if (didToken) {
-                    localStorage.setItem('didToken',JSON.stringify({ didToken,email}));
-                    router.push("/");
+                    const response = await fetch('/api/login',{
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${didToken}`,
+                            "Content-Type": "application/json",
+                        }
+                    })
+
+                    const loggedIn = await response.json();
+                    if (loggedIn.done) {
+                        router.push("/");
+                    } else {
+                        setLoading(false);
+                        setUserMsg("Something went wrong logging in");
+                    }
                 }
             } catch (error:any) {
                 setLoading(false);

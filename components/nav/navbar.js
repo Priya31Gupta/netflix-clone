@@ -43,7 +43,6 @@ const NavBar = (props) => {
                 const isLoggedIn = await magic.user.isLoggedIn();
                 let { email, publicAddress, issuer } = await magic.user.getMetadata();
                 const didToken = await magic.user.getIdToken();
-                //console.log({ didToken,publicAddress, issuer });
                 const localDidToken = JSON.parse(localStorage.getItem('didtoken')) || '';
                 if(isLoggedIn || localDidToken.didtoken){
                     if(!email && localDidToken.email) email = localDidToken.email;
