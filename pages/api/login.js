@@ -40,4 +40,4 @@ export default async function login(req, res) {
     } else {
       res.send({ done: false,  });
     }
-  }
+}
