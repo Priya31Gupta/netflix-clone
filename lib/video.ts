@@ -11,15 +11,14 @@ const fetchData = async(url:string) => {
   
     return await response.json();
   }catch(err){
-    console.error('something went wrong',err)
+    console.error('something went wrong',err);
+    return videoData;
   }
 }
 
 export const getVideos = async (url:string) => {
-  const isDev = process.env.DEVELOPMENT;
-  console.log(process.env.DEVELOPMENT,isDev);
   try{
-      const data = isDev ? videoData : await fetchData(url);
+      const data = await fetchData(url);
       if(data.error){
         console.error("Youtube API error", data.error);
         return [];
