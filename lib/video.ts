@@ -17,7 +17,7 @@ const fetchData = async(url:string) => {
 
 export const getVideos = async (url:string) => {
   const isDev = process.env.DEVELOPMENT;
-
+  console.log(process.env.DEVELOPMENT,isDev);
   try{
       const data = isDev ? videoData : await fetchData(url);
       if(data.error){
