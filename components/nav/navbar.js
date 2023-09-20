@@ -6,8 +6,8 @@ import {magic} from '../../lib/magic-client.js';
 
 const NavBar = (props) => {
     const [userName, setUserName] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
     const[userMsg,setUserMsg] = useState('');
+    const [didToken, setDidToken] = useState('');
 
     const router = useRouter();
 
@@ -29,10 +29,16 @@ const NavBar = (props) => {
 
     const handleSignOut = async () => {
         try {
-            const res = await magic.user.logout();
-            setLoggedIn(res);
-            localStorage.removeItem('didtoken')
-            router.push("/login");
+            const loggingOut = await fetch('/api/logout',{
+                method: 'POST',
+                headers:{
+                    Authorization: `Bearer ${didToken}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+            const loggedOut = await loggingOut.json();
+            if(loggedOut.loggedOut)
+                router.push('/login');
           } catch(error) {
             console.error("Error logging out", error);
           }
@@ -40,17 +46,13 @@ const NavBar = (props) => {
     useEffect(()=>{
         const getUser = async () => {
             try {
-                const isLoggedIn = await magic.user.isLoggedIn();
                 let { email, publicAddress, issuer } = await magic.user.getMetadata();
                 const didToken = await magic.user.getIdToken();
-                const localDidToken = JSON.parse(localStorage.getItem('didtoken')) || '';
-                if(isLoggedIn || localDidToken.didtoken){
-                    if(!email && localDidToken.email) email = localDidToken.email;
-                    setLoggedIn(true);
+                if(email){
                     setUserName(email);
+                    setDidToken(didToken);
                 }
             } catch {
-                setLoggedIn(false);
                 setUserMsg('Something went wrong while authentication.');
             }
         }
@@ -78,7 +80,7 @@ const NavBar = (props) => {
                 <nav className={styles.navContainer}>
                     <div>
                     <button className={styles.usernameBtn}  onClick={handleShowDropdown}>
-                        <p className={styles.username}>{ loggedIn? userName : "Sign In"}</p>
+                        <p className={styles.username}>{ userName ? userName : "Sign In"}</p>
                     </button>
         
                     {showDropdown && (

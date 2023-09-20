@@ -1,4 +1,5 @@
 import videoData from "../data/videos.json";
+import { getMyListVideo, getWatchedVideo } from './db/hasura';
 
 const fetchData = async(url:string) => {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
@@ -23,11 +24,12 @@ export const getVideos = async (url:string) => {
         console.error("Youtube API error", data.error);
         return [];
       }
-        return data?.items.map((item:any) => {
+      return data?.items.map((item:any) => {
+          const id = item.id?.videoId || item.id;
             return {
                 title: item?.snippet?.title,
-                imgUrl: item?.snippet?.thumbnails?.high?.url,
-                id : item.id?.videoId || item.id,
+                id  ,
+                imgUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
                 description: item.snippet.description,
                 publishTime: item.snippet.publishedAt,
                 channelTitle: item.snippet.channelTitle,
@@ -52,4 +54,26 @@ export const getPopularVideos = () => {
 export const getVideoById = async(id:string) => {
   let url = `videos?id=${id}&part=snippet`;
   return getVideos(url);
+}
+
+export const getWatchItAgainVideos = async (userId : string, token: string) => {
+  const videos = await getWatchedVideo(userId, token);
+  const watchedVideo = videos?.data?.stats.map((video: any) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  });
+  return watchedVideo;
+};
+
+export const getMyListVideos = async (userId:string, token:string) => {
+  const videos = await getMyListVideo(userId,token);
+  const mylistVideos = videos?.data?.stats.map((video: any) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  });
+  return mylistVideos;
 }

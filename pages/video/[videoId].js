@@ -6,7 +6,8 @@ import NavBar from '../../components/nav/navbar';
 import { getVideoById  } from "@/lib/video";
 import Like from '../../components/icon/like-icon';
 import DisLike from '../../components/icon/dislike-icon';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from '../../components/loading/loading';
 
 Modal.setAppElement('#__next');
 
@@ -32,20 +33,67 @@ const VideoIdPage = ({video}) => {
     const id = router.query.videoId;
     const [toggleLike, setToggleLike] = useState(false);
     const [toggleDisLike, setToggleDisLike] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
     const handleToggleLike = async() => {
-        console.log('toggled')
         setToggleLike(!toggleLike);
         setToggleDisLike(toggleLike);
+        const val = !toggleLike;
+
+        const response  = await fetch('/api/stats', {
+            method: 'POST',
+            body: JSON.stringify({
+                videoId : id, 
+                favourited : val ? 1 : 0
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const resLike = await response.json();
     }
 
     const handleToggleDisLike = async() => {
-        console.log('toggled')
-        setToggleLike(toggleLike);
-        setToggleDisLike(!toggleLike);
+        setToggleLike(toggleDisLike);
+        setToggleDisLike(!toggleDisLike);
+
+        const val = !toggleDisLike;
+
+        const response  = await fetch('/api/stats', {
+            method: 'POST',
+            body: JSON.stringify({
+                videoId : id, 
+                favourited : val ? 0 : 1
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const resDislike = await response.json();
     }
     
+    useEffect(()=>{
+        async function getVideoStats(){
+            setLoading(true);
+            const res = await fetch(`/api/stats?videoId=${id}`);
+            const videoStats = await res.json();
+
+            if( videoStats?.userVideos?.data?.stats  && videoStats?.userVideos?.data?.stats?.length > 0){
+                if(videoStats.userVideos.data.stats[0].favourited){
+                    setToggleLike(true);
+                }else{
+                    setToggleDisLike(true);
+                }
+            }
+            setLoading(false);
+        }
+        getVideoStats();
+    },[])
+
     const { title, publishTime, description, channelTitle, statistics: { viewCount } = { viewCount: 0 } } = video;
+    if(isLoading) return <Loading />
     return (
         <div className={styles.container}>
             <NavBar  />
