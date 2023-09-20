@@ -12,7 +12,7 @@ const fetchData = async(url:string) => {
     return await response.json();
   }catch(err){
     console.error('something went wrong',err);
-    return videoData;
+    return [];
   }
 }
 
