@@ -41,6 +41,7 @@ export default function Home({ disneyVideos, productivityVideos,travelVideos, po
   return (
     <div className={styles.container}>
       <Head>
+        <meta name="google-site-verification" content="_ucB6EGoQpe42sbwItrrJWhOTzW6WPoIFZn6bHyjwd0" />
         <title>Netflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
