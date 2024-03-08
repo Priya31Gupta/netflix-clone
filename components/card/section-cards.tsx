@@ -9,8 +9,13 @@ const SectionCards = (props:any) => {
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.cardWrapper}>
       {videos.map((video: any, idx:any) => {
-        return <Link href={`/video/${video.id}`} key={idx} title={title}>
-                  <Card id={idx} imgUrl={video.imgUrl} size={size} />
+
+        const Id: string = typeof video.id != 'string' ? video.id.videoId : video.id;
+
+        const  Thumbnail: string = typeof video.id != 'string' ? video.snippet.thumbnails.default.url : video.imgUrl;
+        
+        return <Link href={`/video/${Id}`} key={idx} title={title}>
+                  <Card id={idx} imgUrl={Thumbnail} size={size} />
               </Link>
         })}
       </div>

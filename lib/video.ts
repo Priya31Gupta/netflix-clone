@@ -21,7 +21,7 @@ export const getVideos = async (url:string) => {
       const data = await fetchData(url);
       if(data.error){
         console.error("Youtube API error", data.error);
-        return [];
+        return videoData.items;
       }
       return data?.items.map((item:any) => {
           const id = item.id?.videoId || item.id;
