@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
       setLoading(true);
       const isLoggedIn = await magic.user.isLoggedIn();
       if (isLoggedIn) {
+        console.log('✌️handleLoggedIn ---> inside if');
         router.push("/");
       } else {
         router.push("/login");
