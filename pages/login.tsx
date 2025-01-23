@@ -74,7 +74,7 @@ const Login = () => {
         <div  className={styles.container}>
             <Head>
                 <meta name="google-site-verification" content="_ucB6EGoQpe42sbwItrrJWhOTzW6WPoIFZn6bHyjwd0" />
-                <title>Netflix SignIn</title>
+                <title>CineStream SignIn</title>
             </Head>
 
             <header className={styles.header}>
@@ -82,8 +82,8 @@ const Login = () => {
                 <Link className={styles.logoLink} href="/">
                     <div className={styles.logoWrapper}>
                         <Image
-                        src="/static/netflix.svg"
-                        alt="Netflix logo"
+                        src="/static/cinestream.png"
+                        alt="cinestream logo"
                         width={128}
                         height={34}
                         priority

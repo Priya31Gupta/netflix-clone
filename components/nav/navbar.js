@@ -66,8 +66,8 @@ const NavBar = (props) => {
                 <a className={styles.logoLink}>
                 <div className={styles.logoWrapper}>
                     <Image
-                    src="/static/netflix.svg"
-                    alt="Netflix logo"
+                    src="/static/cinestream.png"
+                    alt="cinestream logo"
                     width={128}
                     height={34}
                     />

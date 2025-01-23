@@ -1,5 +1,5 @@
 # Netflix Clone
-<img src="https://res.cloudinary.com/dtzzxe28w/image/upload/v1707118489/netflix_rg6yr1.svg" alt="netflix-logo" width="100" height="100">
+<img src="https://res.cloudinary.com/dtzzxe28w/image/upload/v1737663244/cinestream_ppqbqi.png" alt="cinestream-logo">
 
 A Netflix clone created for learning purposes using Next.js, JSON Web Token (jsonwebtoken), Magic SDK, Hasura GraphQL, and Framer Motion.
 
@@ -16,7 +16,7 @@ A Netflix clone created for learning purposes using Next.js, JSON Web Token (jso
 ## Description
 
 This project is a Netflix clone developed as part of the learning process. It mimics the design and functionality of the popular streaming service Netflix. Users can browse through a selection of movies and TV shows, view details, and enjoy a seamless viewing experience.
-![login page](https://res.cloudinary.com/dtzzxe28w/image/upload/v1707118310/image_2_lu3bdb.png)
+![login page](https://res.cloudinary.com/dtzzxe28w/image/upload/v1737663482/Screenshot_2025-01-24_014647_mql9ok.png)
 ## Features
 
 - User authentication using JSON Web Token (jsonwebtoken)
