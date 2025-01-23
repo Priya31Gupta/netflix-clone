@@ -1,0 +1,4 @@
+# Next.js dynamic routing
+/*    /_next/static/:splat  200
+/*    /_next/:splat         200
+/*    /:splat               200
