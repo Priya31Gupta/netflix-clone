@@ -1,4 +1,4 @@
-# Netflix Clone
+# Cinestream
 <img src="https://res.cloudinary.com/dtzzxe28w/image/upload/v1737663244/cinestream_ppqbqi.png" alt="cinestream-logo">
 
 A Netflix clone created for learning purposes using Next.js, JSON Web Token (jsonwebtoken), Magic SDK, Hasura GraphQL, and Framer Motion.
