@@ -55,8 +55,8 @@ export const getVideoById = async(id:string) => {
   return getVideos(url);
 }
 
-export const getWatchItAgainVideos = async (userId : string, token: string) => {
-  const videos = await getWatchedVideo(userId, token);
+export const getWatchItAgainVideos = async (userId : string, token: string, hasuraClient: any) => {
+  const videos = await getWatchedVideo(userId, token, hasuraClient);
   const watchedVideo = videos?.data?.stats.map((video: any) => {
     return {
       id: video.videoId,
@@ -66,8 +66,8 @@ export const getWatchItAgainVideos = async (userId : string, token: string) => {
   return watchedVideo;
 };
 
-export const getMyListVideos = async (userId:string, token:string) => {
-  const videos = await getMyListVideo(userId,token);
+export const getMyListVideos = async (userId:string, token:string, hasuraClient: any) => {
+  const videos = await getMyListVideo(userId,token, hasuraClient);
   const mylistVideos = videos?.data?.stats.map((video: any) => {
     return {
       id: video.videoId,

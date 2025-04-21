@@ -4,9 +4,12 @@ import Head from "next/head";
 import styles from '../../styles/myList.module.css';
 import verifyToken from "@/lib/utils";
 import { getMyListVideos } from "@/lib/video";
+import {createHasuraClient} from "@/lib/db/hasuraClient";
 
 export async function getServerSideProps(context: any){
     const token = context.req ? context.req?.cookies.token : null;
+    const decodedToken = await verifyToken(token);
+    const {queryHasura} = createHasuraClient(decodedToken);
     const userId = await verifyToken(token);
     
     if(!userId){
@@ -19,7 +22,7 @@ export async function getServerSideProps(context: any){
         };
     }
 
-    const myListVideos = await getMyListVideos(userId, token);
+    const myListVideos = await getMyListVideos(userId, token, queryHasura);
     return {
         props: {
             myListVideos

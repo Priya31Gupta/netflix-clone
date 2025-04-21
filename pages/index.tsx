@@ -5,11 +5,14 @@ import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
 import { getSpecificVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/video";
 import verifyToken from '../lib/utils';
+import {createHasuraClient} from '../lib/db/hasuraClient';
 
 
 
 export async function getServerSideProps(context:any) {
   const token = context.req ? context.req?.cookies.token : null;
+  const decodedToken = await verifyToken(token);
+  const { queryHasura } = createHasuraClient(decodedToken);
   const userId = await verifyToken(token);
   const disneyVideos = await getSpecificVideos('disney trailer');
   const travelVideos = await getSpecificVideos("indie music");
@@ -24,7 +27,7 @@ export async function getServerSideProps(context:any) {
       },
     };
   }
-  const watchedVideo = await getWatchItAgainVideos(userId,token);
+  const watchedVideo = await getWatchItAgainVideos(userId,token,queryHasura) || [];
 
   return {
     props: { disneyVideos,productivityVideos,travelVideos, popularVideos, watchedVideo} 
