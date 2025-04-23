@@ -4,12 +4,18 @@
     align-items: center;
     justify-content: flex-start;
     min-height: 100vh;
-    background-color: var(--black);
-  
-    background-image: linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%)),
-      url(/static/signin-bg.jpeg);
+    
   }
   
+  .container::before {
+    opacity: 0.5;
+    content: "";
+    position: absolute;
+    inset: 0px;
+    background-position: center center;
+    background-image: url(/static/signin-bg.jpeg);
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
