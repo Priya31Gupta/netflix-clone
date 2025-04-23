@@ -12,7 +12,7 @@ const SectionCards = (props:any) => {
 
         const Id: string = typeof video.id != 'string' ? video.id.videoId : video.id;
 
-        const  Thumbnail: string = typeof video.id != 'string' ? video.snippet.thumbnails.default.url : video.imgUrl;
+        const  Thumbnail: string = typeof video.id != 'string' ? video.snippet.thumbnails.high.url : video.imgUrl;
         
         return <Link href={`/video/${Id}`} key={idx} title={title}>
                   <Card id={idx} imgUrl={Thumbnail} size={size} />
