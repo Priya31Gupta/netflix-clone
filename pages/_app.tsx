@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleLoggedIn = async () => {
       setLoading(true);
-      const isLoggedIn = await magic.user.isLoggedIn();
+      const isLoggedIn = magic ? await magic.user.isLoggedIn() : false;
       if (isLoggedIn) {
         console.log('✌️handleLoggedIn ---> inside if');
         router.push("/");
