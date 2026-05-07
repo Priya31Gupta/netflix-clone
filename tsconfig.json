@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
+    // "ignoreDeprecations": "6.0",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,6 +18,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/banner/banner.js", "pages/_document.js", "lib/magic-client.js", "pages/api/login.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/banner/banner.js", "pages/_document.js", "lib/magic-client.ts", "pages/api/login.js"],
   "exclude": ["node_modules"]
 }

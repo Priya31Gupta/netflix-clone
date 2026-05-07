@@ -2,7 +2,7 @@ import styles from './navbar.module.css';
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Image from "next/legacy/image";
-import {magic} from '../../lib/magic-client.js';
+import {magic} from '../../lib/magic-client.ts';
 
 const NavBar = (props) => {
     const [userName, setUserName] = useState('');

@@ -31,7 +31,11 @@ const Login = () => {
         }else{
             try {
                 setLoading(true);
-                const didToken  = await magic.auth.loginWithEmailOTP({ email, deviceCheckUI: false});
+                if (!magic) return;
+                const didToken = await magic.auth.loginWithEmailOTP({
+                    email,
+                });
+
                 if (didToken) {
                     const response = await fetch('/api/login',{
                         method: "POST",
