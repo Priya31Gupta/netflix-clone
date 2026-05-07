@@ -47,6 +47,18 @@ cd netflix-clone
 npm install
 ```
 
+3. Add environment variables:
+```
+NODE_ENV=''
+JWT_SECRET=''
+NEXT_PUBLIC_HASURA_URL=''
+NEXT_PUBLIC_HASURA_ADMIN_SECRET=''
+DB_PASS=''
+MAGIC_SECRET_KEY=''
+NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY=''
+YOUTUBE_API_KEY=''
+```
+
 ## Usage
 
 1. Run the development server:

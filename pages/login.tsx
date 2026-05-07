@@ -31,7 +31,7 @@ const Login = () => {
         }else{
             try {
                 setLoading(true);
-                const didToken  = await magic.auth.loginWithEmailOTP({ email});
+                const didToken  = await magic.auth.loginWithEmailOTP({ email, deviceCheckUI: false});
                 if (didToken) {
                     const response = await fetch('/api/login',{
                         method: "POST",
@@ -49,9 +49,14 @@ const Login = () => {
                         setUserMsg("Something went wrong logging in");
                     }
                 }
-            } catch (error:any) {
+            } catch (error: any) {
+                console.error("MAGIC OTP ERROR:", error);
+
                 setLoading(false);
-                setUserMsg('Something went wrong while authentication.');
+
+                setUserMsg(
+                    error?.message || "Authentication failed"
+                );
             }
         }
     }
